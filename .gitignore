@@ -1,0 +1,11 @@
+pseudo_labels/
+dat/
+roboflow_dataset/
+unannotated_raw/
+quarantined_duplicates/
+
+venv/
+env/
+
+__pycache__/
+.ipynb_checkpoints/

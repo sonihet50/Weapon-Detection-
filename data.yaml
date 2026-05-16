@@ -1,0 +1,10 @@
+# data.yaml
+path: ./roboflow_dataset # Use your absolute path here
+train: train/images
+val: valid/images
+test: test/images # (Leave this out if you don't have a test split)
+
+# Classes
+nc: 1 # Number of classes
+names:
+  0: weapon
