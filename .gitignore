@@ -3,6 +3,7 @@ dat/
 roboflow_dataset/
 unannotated_raw/
 quarantined_duplicates/
+Final_dataset/
 
 venv/
 env/
