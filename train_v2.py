@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 def train_production_model():
-    model = YOLO("yolo26n.pt") 
+    model = YOLO(r"D:\Weapon Detection\runs\detect\weapon_detection\v2_cctv_robust\weights\last.pt") 
 
     
     yaml_path = r"D:\Weapon Detection\Final_dataset\data.yaml"
@@ -19,7 +19,8 @@ def train_production_model():
         workers=4,            
         project="weapon_detection",
         name="v2_cctv_robust",
-        amp=True            
+        amp=True,
+        resume=True            
     )
     
     print("\n--- Training Complete! ---")

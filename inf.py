@@ -52,11 +52,11 @@ if __name__ == "__main__":
 
     print(f"Targeting Device :",{device})
 
-    model_path = r"D:\Weapon Detection\runs\detect\weapon_detection\yolo26_high_perf\weights\best.pt"
+    model_path = r"D:\Weapon Detection\runs\detect\weapon_detection\v2_cctv_robust-5\weights\best.pt"
 
     model = YOLO(model_path).to(device)
 
-    cameras = ["nigga.mp4", "thieves.mp4", "weapon_in_school.mp4","clear_pistol.mp4"]
+    cameras = ["weapon_vid_1.mp4", "weapon_vid_2.mp4", "weapon_vid_3.mp4","weapon_vid_4.mp4"]
 
     cam = []
 
