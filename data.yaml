@@ -1,10 +1,13 @@
-# data.yaml
-path: ./roboflow_dataset # Use your absolute path here
-train: train/images
-val: valid/images
-test: test/images # (Leave this out if you don't have a test split)
+train: ../train/images
+val: ../valid/images
+test: ../test/images
 
-# Classes
-nc: 1 # Number of classes
-names:
-  0: weapon
+nc: 1
+names: ['Weapon']
+
+roboflow:
+  workspace: het-soni-szsph
+  project: wd-1
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/het-soni-szsph/wd-1/dataset/2
