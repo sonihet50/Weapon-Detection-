@@ -1,8 +1,8 @@
-# SiteSecure VISION - Setup & Dependency Guide
+# Weapon Detection
 
 This document provides a comprehensive guide to setting up the environment, installing dependencies, and running the various scripts in this repository.
 
-SiteSecure VISION is a real-time surveillance and weapon detection system that utilizes deep learning (YOLO26n via Ultralytics) combined with a PyQt6-based dashboard for site monitoring and security alerts.
+Weapon Detection is a real-time surveillance and weapon detection system that utilizes deep learning (YOLO26n via Ultralytics) combined with a PyQt6-based dashboard for site monitoring and security alerts.
 
 ---
 
