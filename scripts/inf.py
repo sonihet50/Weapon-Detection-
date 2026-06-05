@@ -51,7 +51,7 @@ if __name__ == "__main__":
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     print(f"Targeting Device :",{device})
-    model_path = r"D:\Weapon Detection\runs\detect\weapon_detection\Final_yolo26n_cctv_aug\weights\best.pt"
+    model_path = r"D:\Weapon Detection\model\weapon_detection.pt"
     # model_path = r"D:\Weapon Detection\runs\detect\weapon_detection\Final_yolo26n_cctv_aug\best.pt"
 
     model = YOLO(model_path).to(device)
@@ -75,7 +75,7 @@ if __name__ == "__main__":
                 frames.append(f)
             else:
                 frames.append(np.zeros((pane_height, pane_width, 3), dtype=np.uint8))
-        results = model.predict(frames,conf=0.60,iou=0.45,device=device,verbose=False,imgsz=640)
+        results = model.predict(frames,conf=0.50,iou=0.45,device=device,verbose=False,imgsz=640)
         annotated_frames = []
         for i in range(len(results)):
             img = results[i].plot()

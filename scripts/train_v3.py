@@ -3,11 +3,15 @@ from ultralytics import YOLO
 from ultralytics.data.augment import Albumentations
 from ultralytics.utils import colorstr
 
-# 1. Define our custom CCTV pipeline override (UPDATED SIGNATURE)
+# 1. Define our custom CCTV pipeline override (THE FINAL VERSION)
 def custom_cctv_init(self, p=1.0, *args, **kwargs):
     """Overrides the default Ultralytics Albumentations pipeline."""
     self.p = p
     self.transform = None
+    
+    # We are only doing pixel-level changes, so spatial is False.
+    self.contains_spatial = False 
+    
     prefix = colorstr("albumentations: ")
     try:
         T = [
@@ -16,10 +20,11 @@ def custom_cctv_init(self, p=1.0, *args, **kwargs):
             A.GaussNoise(var_limit=(10.0, 50.0), p=0.3), 
             A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=0.4)
         ]
-        self.transform = A.Compose(
-            T, 
-            bbox_params=A.BboxParams(format="yolo", label_fields=["class_labels"])
-        )
+        
+        # THE FIX: Removed bbox_params entirely. 
+        # Since contains_spatial=False, YOLO only passes the image to this pipeline.
+        self.transform = A.Compose(T)
+        
         print(f"{prefix}Successfully injected Custom CCTV Pipeline!")
     except ImportError:
         print(f"{prefix}WARNING ⚠️ albumentations not found. Run 'pip install albumentations'")
@@ -27,27 +32,28 @@ def custom_cctv_init(self, p=1.0, *args, **kwargs):
 # 2. Apply the override
 Albumentations.__init__ = custom_cctv_init
 
+
 def train_production_model():
-    model = YOLO("yolo26n.pt") 
+    model = YOLO(r"yolo26n.pt") 
     
-    yaml_path = r"D:\Weapon Detection\Final_dataset\data.yaml"                                           
+    yaml_path = r"D:\Weapon Detection\WD_v3\data.yaml"
 
     print("Initiating Enterprise Training Run with Custom CCTV Augmentations...")
 
-    # Train the model (YOLO will now automatically use our injected pipeline)
+    # Train the model
     results = model.train(
         data=yaml_path,
         epochs=100,           
         patience=15,          
         imgsz=640,            
-        batch=16,              
+        batch=24,              
         device=0,             
-        workers=4,            
+        workers=6,            
         project="weapon_detection",
-        name="yolo26n_albumentations", 
+        name="weapon_detection_yolo26", 
         amp=True,
         
-        # --- Standard Spatial Augmentations ---
+        # --- Standard YOLO Augmentations ---
         hsv_h=0.015,      
         hsv_s=0.7,        
         hsv_v=0.4,        
